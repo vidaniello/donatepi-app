@@ -38,16 +38,16 @@ function createPay(){
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { 
-  
+    window.alert("onReadyForServerApproval");
   },
   onReadyForServerCompletion: function(paymentId, txid) { 
-  
+    window.alert("onReadyForServerCompletion");
   },
   onCancel: function(paymentId) {
-  
+    window.alert("onCancel");
   },
   onError: function(error, payment) { 
-  
+    window.alert("onError");
   },
 });
 }
