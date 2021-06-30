@@ -6,7 +6,8 @@ function auth(){
   .then(function(auth) {
     console.log("Hi there! You're ready to make payments!");
     window.alert("Hi there! You're ready to make payments!");
-    document.getElementById("authButtonId");
+    document.getElementById("authButtonId").disabled=true;
+    document.getElementById("authId").innerHTML="Authentication ok!"
   })
   .catch(function(error) {
     console.error(error);
