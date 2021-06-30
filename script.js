@@ -45,8 +45,24 @@ function createPay(){
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { 
-    window.alert("onReadyForServerApproval");
-    window.alert("paymentId: "+paymentId);
+    
+    var url = "https://api.minepi.com/payments/";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.minepi.com/v2/payments/:"+paymentId+"/approve");
+
+    xhr.setRequestHeader("Authorization", "Key l7o0qh1tls1jazekzey3qnynvuh8rwlewv7z5efgp8fnnluacae0fgyfbk9tjj28");
+
+    xhr.onreadystatechange = function () {
+     if (xhr.readyState === 4) {
+      window.alert(xhr.status);
+      window.alert(xhr.responseText);
+     }
+    };
+
+    xhr.send();
+    
+    //window.alert("paymentId: "+paymentId);
   },
   onReadyForServerCompletion: function(paymentId, txid) { 
     window.alert("onReadyForServerCompletion");
