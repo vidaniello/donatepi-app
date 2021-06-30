@@ -44,7 +44,7 @@ function createPay(){
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { 
-    window.alert("paymentId: "+paymentId);
+    window.alert("paymentId: "+paymentId+" end");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.minepi.com/v2/payments/:"+paymentId+"/approve");
 
@@ -67,8 +67,9 @@ function createPay(){
   onCancel: function(paymentId) {
     window.alert("onCancel");
   },
-  onError: function(error, payment) { 
-    window.alert("onError");
+  onError: function(error, payment) {
+    window.alert("onError: "+error);
+    window.alert("onError: "+payment);
   },
 });
 }
