@@ -9,8 +9,8 @@ function auth(){
     //console.log("Hi there! You're ready to make payments!");
     //window.alert("Hi there! You're ready to make payments!");
     document.getElementById("authButtonId").remove();
-    document.getElementById("authId").innerHTML="Welcome "+authResult.user.username/*+", accessToken: "+authResult.accessToken*/;
   })
+    document.getElementById("authId").innerHTML="Welcome "+authResult.user.username/*+", accessToken: "+authResult.accessToken*/;
   .catch(function(error) {
     console.error(error);
     window.alert("Authentication failed!"+error);
