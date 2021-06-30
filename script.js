@@ -9,7 +9,7 @@ function auth(){
     console.log("Hi there! You're ready to make payments!");
     window.alert("Hi there! You're ready to make payments!");
     document.getElementById("authButtonId").disabled=true;
-    document.getElementById("authId").innerHTML="Welcome"+authResult.user.username;
+    document.getElementById("authId").innerHTML="Welcome "+authResult.user.username;
   })
   .catch(function(error) {
     console.error(error);
