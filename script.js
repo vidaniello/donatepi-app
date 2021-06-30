@@ -44,11 +44,14 @@ function createPay(){
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { 
+    
     window.alert("paymentId: "+paymentId+" end");
+    
+    //THIS CODE must go in separate server side
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
 
-    xhr.setRequestHeader("Authorization", "Key ddz3faucwpfoltnfvxgltbud6rgndn8ahdbmunkt2ohv2l9fmra5zmue3kkt0kms");
+    xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
 
     xhr.onreadystatechange = function () {
      if (xhr.readyState === 4) {
@@ -58,11 +61,13 @@ function createPay(){
     };
 
     xhr.send();
-    
+    //THIS CODE must go in separate server side
     
   },
   onReadyForServerCompletion: function(paymentId, txid) { 
     window.alert("onReadyForServerCompletion");
+    
+    //send to separate server side
   },
   onCancel: function(paymentId) {
     window.alert("onCancel");
