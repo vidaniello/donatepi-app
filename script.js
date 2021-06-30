@@ -37,9 +37,18 @@ function createPay(){
   metadata: { cause:"donation"}, // e.g: { kittenId: 1234 }
 }, {
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
-  onReadyForServerApproval: function(paymentId) { /* ... */ },
-  onReadyForServerCompletion: function(paymentId, txid) { /* ... */ },
-  onCancel: function(paymentId) { /* ... */ },
-  onError: function(error, payment) { /* ... */ },
+  onReadyForServerApproval: function(paymentId) { 
+  
+  },
+  onReadyForServerCompletion: function(paymentId, txid) { 
+  
+  },
+  onCancel: function(paymentId) {
+  
+  },
+  onError: function(error, payment) { 
+  
+  },
 });
 }
+
