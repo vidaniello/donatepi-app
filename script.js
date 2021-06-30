@@ -46,9 +46,9 @@ function createPay(){
   onReadyForServerApproval: function(paymentId) { 
     window.alert("paymentId: "+paymentId+" end");
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://api.minepi.com/v2/payments/:"+paymentId+"/approve");
+    xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
 
-    xhr.setRequestHeader("Authorization", "Key sc");
+    xhr.setRequestHeader("Authorization", "Key ddz3faucwpfoltnfvxgltbud6rgndn8ahdbmunkt2ohv2l9fmra5zmue3kkt0kms");
 
     xhr.onreadystatechange = function () {
      if (xhr.readyState === 4) {
