@@ -10,6 +10,13 @@ function auth(){
     //window.alert("Hi there! You're ready to make payments!");
     document.getElementById("authButtonId").remove();
     document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", authentication ok!"/*+", accessToken: "+authResult.accessToken*/;
+    
+    let sendButton = document.createElement("input");
+    sendButton.type = "button";
+    sendButton.value = "Send donation";
+    sendButton.addEventListener("click", function "windows.alert('Ca')";
+    
+    document.getElementById("sendPayments").appendChild(sendButton);
   })
   .catch(function(error) {
     console.error(error);
