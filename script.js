@@ -14,7 +14,7 @@ function auth(){
     let sendButton = document.createElement("input");
     sendButton.type = "button";
     sendButton.value = "Send donation";
-    sendButton.addEventListener("click", function "windows.alert('Ca')";
+    sendButton.addEventListener("click", createPay);
     
     document.getElementById("sendPayments").appendChild(sendButton);
   })
@@ -46,6 +46,7 @@ function createPay(){
   // Callbacks you need to implement - read more about those in the detailed docs linked below:
   onReadyForServerApproval: function(paymentId) { 
     window.alert("onReadyForServerApproval");
+    window.alert("paymentId: "+paymentId);
   },
   onReadyForServerCompletion: function(paymentId, txid) { 
     window.alert("onReadyForServerCompletion");
