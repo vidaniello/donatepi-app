@@ -1,0 +1,9 @@
+<svg>
+    <style>
+    path { fill: #3fb0ac; }
+    @media (prefers-color-scheme: dark) {
+        path { fill: #3fb0ac; }
+    }
+    </style>
+    <path d="..."/>
+</svg>
