@@ -47,7 +47,7 @@ function createPay(){
     
     window.alert("paymentId: "+paymentId+" end");
     
-    //THIS CODE must go in separate server side
+    
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
 
@@ -61,13 +61,13 @@ function createPay(){
     };
 
     xhr.send();
-    //THIS CODE must go in separate server side
+    
     
   },
   onReadyForServerCompletion: function(paymentId, txid) { 
     window.alert("onReadyForServerCompletion");
     
-    //send to separate server side
+    
   },
   onCancel: function(paymentId) {
     window.alert("onCancel");
