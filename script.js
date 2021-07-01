@@ -1,3 +1,4 @@
+require('dotenv').config();
 const scopes = ['payments'];
 
 const avar = process.env.TEST;

@@ -1,0 +1,13 @@
+{
+  "name": "donatepi",
+  "description": "A simple donate app based on PI blockchain",
+  "version": "1.0.0",
+  "author": "vidaniello@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "scripts": {
+    "start": "ws --port 3000 --log.format combined --directory . --blacklist '/.env' '/.data' '/.git'"
+  }
+}
