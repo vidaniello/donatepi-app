@@ -1,9 +1,4 @@
-require('dotenv').config();
 const scopes = ['payments'];
-
-const avar = process.env.TEST;
-
-window.alert(avar);
 
 var authResult = null;
 
