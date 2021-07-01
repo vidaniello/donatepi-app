@@ -4,6 +4,30 @@ const donatepiEndpoint = "https://donatepi-server.glitch.me/v1";
 
 var authResult = null;
 
+var url = "https://donatepi-server.glitch.me/v1";
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", url);
+
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+   }};
+
+var data = `{
+  "operation":"infoByUserAccessToken",
+  "user_access_token":"QNXa-cduMskJNllwRNrGd0E9Q3NYRPNe6HERwW28iYs",
+  "payment_id":"wmsuEPgPVmHELIuvji7xrudeAUw5"
+}`;
+
+xhr.send(data);
+
+
+
+
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   window.alert("Incomplete payment not found: "+payment);
