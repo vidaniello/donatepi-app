@@ -1,5 +1,7 @@
 const scopes = ['payments'];
 
+const donatepiEndpoint = "https://donatepi-server.glitch.me/v1";
+
 var authResult = null;
 
 function onIncompletePaymentFound(payment) { 
@@ -16,6 +18,8 @@ function auth(){
     document.getElementById("authButtonId").remove();
     document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", authentication ok!<br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
     
+    requestUserInfoByAccessToken(_authResult);
+    
     let sendButton = document.createElement("input");
     sendButton.type = "button";
     sendButton.value = "Send donation";
@@ -30,7 +34,23 @@ function auth(){
 }
 
 
+function requestUserInfoByAccessToken(_authResult){
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", donatepiEndpoint);
 
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  xhr.onreadystatechange = function () {
+     if (xhr.readyState === 4) {
+        //console.log(xhr.status);
+        //console.log(xhr.responseText);
+       document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
+     }};
+
+  var data = '{"operation":"infoByUserAccessToken", "user_access_token":"'+_authResult+'" }';
+
+  xhr.send(data);
+}
 
 
 
