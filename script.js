@@ -1,5 +1,7 @@
 const scopes = ['payments'];
 
+window.alert(process.env.test);
+
 var authResult = null;
 
 function onIncompletePaymentFound(payment) { 
