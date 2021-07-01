@@ -38,8 +38,6 @@ function requestUserInfoByAccessToken(_authResult){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint);
 
-  xhr.setRequestHeader("Content-Type", "application/json");
-
   xhr.onreadystatechange = function () {
      if (xhr.readyState === 4) {
         //console.log(xhr.status);
@@ -47,9 +45,17 @@ function requestUserInfoByAccessToken(_authResult){
        document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
      }};
 
-  var data = '{"operation":"infoByUserAccessToken", "user_access_token":"'+_authResult+'" }';
-
+  var data = `{
+    "operation":"infoByUserAccessToken",
+    "user_access_token":"QNXa-cduMskJNllwRNrGd0E9Q3NYRPNe6HERwW28iYs",
+    "payment_id":"wmsuEPgPVmHELIuvji7xrudeAUw5"
+  }`;
+  
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Content-Length", data.length);
   xhr.send(data);
+  
+  document.getElementById("userInfoByAccessToken").innerHTML="request user info by access token...";
 }
 
 
