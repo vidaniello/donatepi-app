@@ -1,8 +1,8 @@
 const scopes = ['payments'];
 
-const 
+const avar = process.env.TEST;
 
-window.alert(process.env);
+window.alert(avar);
 
 var authResult = null;
 
