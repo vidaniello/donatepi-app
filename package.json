@@ -1,13 +1,18 @@
 {
-  "name": "donatepi",
-  "description": "A simple donate app based on PI blockchain",
+  "name": "donatepi-server",
+  "description": "A simple donate app based on PI blockchain, server side",
   "version": "1.0.0",
   "author": "vidaniello@gmail.com",
+  "main": "index.js",
   "license": "ISC",
-  "dependencies": {
-    "dotenv": "^10.0.0"
-  },
   "scripts": {
-    "start": "ws --port 3000 --log.format combined --directory . --blacklist '/.env' '/.data' '/.git'"
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=12.x"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
   }
 }
