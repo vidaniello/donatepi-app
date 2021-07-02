@@ -42,14 +42,20 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 function printInErrorDiv(messageError, xhr){
+  if(typeof messageError !== "undefined" && typeof xhr !== "undefined")
    document.getElementById("errorDiv").innerHTML= messageError+": "+xhr.responseText+"<br/> status:"+xhr.status;
+  else if(typeof messageError !== "undefined")
+    document.getElementById("errorDiv").innerHTML= messageError;
+  else
+    document.getElementById("errorDiv").innerHTML= "Generic error!";
 }
 
 
 
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
-  window.alert("Incomplete payment not found: "+payment);
+  //window.alert("Incomplete payment not found: "+payment);
+  printInErrorDiv()
 };
 
 function auth(){
@@ -60,7 +66,7 @@ function auth(){
     document.getElementById("authButtonId").remove();
     document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", authentication ok!<br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
     
-    requestUserInfoByAccessToken(_authResult);
+    requestUserInfoByAccessToken(_authResult.accessToken);
     
     let sendButton = document.createElement("input");
     sendButton.type = "button";
@@ -76,11 +82,11 @@ function auth(){
 }
 
 
-function requestUserInfoByAccessToken(_authResult){
+function requestUserInfoByAccessToken(userAccessToken){
   
   let data = `{
-    operation:"infoByUserAccessToken",
-    user_access_token":"dsdsd",
+    "operation": "infoByUserAccessToken",
+    "user_access_token": "${userAccessToken}"
   }`;
   
   let xhr = new XMLHttpRequest();
@@ -93,7 +99,7 @@ function requestUserInfoByAccessToken(_authResult){
     
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
-        document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
+        document.getElementById("userInfoByAccessToken").innerHTML="''/me' from pi chain: "+xhr.responseText;
       }else
         printInErrorDiv("Error request user info",xhr);
   };
