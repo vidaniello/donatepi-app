@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-
+function printInErrorDiv(messageError, xhr){
+   document.getElementById("errorDiv").innerHTML= messageError+": "+xhr.responseText+"<br/> status:"+xhr.status;
+}
 
 
 
@@ -71,7 +73,9 @@ function requestUserInfoByAccessToken(_authResult){
   xhr.onreadystatechange = function () {
      if (xhr.readyState === 4 && xhr.status === 200) {
        document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
-     }
+     }else
+       printInErrorDiv("Error request user info",xhr);
+     
   };
 
   var data = `{
