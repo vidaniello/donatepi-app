@@ -1,6 +1,8 @@
 const scopes = ['payments'];
 
-const donatepiEndpoint = "https://donatepi-server.glitch.me/v1";
+const donatepiEndpoint = "https://donatepi-server.glitch.me";
+const requestDonatepiServerStatus_path = "/serverStatus";
+const requestOperation_path = "/v1";
 
 var donatepiServerConnection = false;
 var authResult = null;
@@ -10,20 +12,18 @@ var authResult = null;
 document.addEventListener("DOMContentLoaded", function(){
   
   //Request donatepi-server status
-  var url = "https://donatepi-server.glitch.me/serverStatus";
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
+  xhr.open("GET", donatepiEndpoint+requestDonatepiServerStatus_path);
   xhr.onreadystatechange = function () {
-     if (xhr.readyState === 4) {
-       if(xhr.status !== 200){
-         donatepiServerConnection=true;
-         document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
-       }else{
-         document.getElementById("authButtonId").remove();
-         document.getElementById("authId").innerHTML="";
-         document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
-       }
-     }};
+   if (xhr.readyState === 4 && xhr.status === 200) {
+      donatepiServerConnection=true;
+      document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
+    }else{
+      document.getElementById("authButtonId").remove();
+      document.getElementById("authId").innerHTML=null;
+      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
+    }
+  };
   xhr.send();
   
 });
@@ -65,20 +65,18 @@ function auth(){
 
 
 function requestUserInfoByAccessToken(_authResult){
+  
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", donatepiEndpoint);
-
+  xhr.open("POST", donatepiEndpoint+requestOperation_path);
   xhr.onreadystatechange = function () {
-     if (xhr.readyState === 4) {
-        //console.log(xhr.status);
-        //console.log(xhr.responseText);
+     if (xhr.readyState === 4 && xhr.status === 200) {
        document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
-     }};
+     }
+  };
 
   var data = `{
     "operation":"infoByUserAccessToken",
-    "user_access_token":"QNXa-cduMskJNllwRNrGd0E9Q3NYRPNe6HERwW28iYs",
-    "payment_id":"wmsuEPgPVmHELIuvji7xrudeAUw5"
+    "user_access_token":"${_authResult}",
   }`;
   
   xhr.setRequestHeader("Content-Type", "application/json");
