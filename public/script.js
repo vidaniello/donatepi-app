@@ -55,7 +55,7 @@ function printInErrorDiv(messageError, xhr){
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
-  printInErrorDiv("Last paymentId '"+payment+"' was incomplete");
+  printInErrorDiv("Last payment INCOMPLETE:<br/> '"+JSON.stringify(payment));
 };
 
 
@@ -65,7 +65,7 @@ function auth(){
     authResult = _authResult;
 
     document.getElementById("authButtonId").remove();
-    document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", authentication ok!<br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
+    document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", <span style='color: green;'>authentication ok!</span><br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
     
     requestUserInfoByAccessToken(_authResult.accessToken);
     
