@@ -8,16 +8,16 @@ var authResult = null;
 //Request donatepi-server status
 var url = "https://donatepi-server.glitch.me/serverStatus";
 var xhr = new XMLHttpRequest();
-xhr.open("GET", url);
-//xhr.setRequestHeader("Content-Type", "application/json");
+xhr.open("POST", url);
+xhr.setRequestHeader("Content-Type", "application/json");
 xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
-     if(xhr.status==200){
+     //if(xhr.status===200){
        donatepiServerConnection=true;
        document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
-     }else{
-       document.getElementById("donatepiServerStatus").innerHTML="Donatepi-server status error: "+xhr.status;
-     }
+     //}else{
+       //document.getElementById("donatepiServerStatus").innerHTML="Donatepi-server status error: "+xhr.status;
+     //}
    }};
 xhr.send();
 
