@@ -16,16 +16,20 @@ document.addEventListener("DOMContentLoaded", function(){
   xhr.open("GET", donatepiEndpoint+requestDonatepiServerStatus_path);
   xhr.onreadystatechange = function () {
     
-  if (xhr.readyState === 4){
+  if (xhr.readyState === 4 && xhr.status === 200)
     if(xhr.status === 200){
       donatepiServerConnection=true;
-      document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
-    }
-  }else{
-    document.getElementById("authButtonId").remove();
-    document.getElementById("authId").innerHTML=null;
-    document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
-  }
+      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: green;\">"+xhr.responseText+"</span>";
+      
+      let authText = `
+        <span id="authId">Authenticate before continue!</span>
+        <input type="button" id="authButtonId" onclick="auth();" value="Authenticate"/>
+        `
+      document.getElementById("authDiv").innerHTML=authText;
+      
+    }else
+      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
+    
     
   };
   xhr.send();
