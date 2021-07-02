@@ -56,8 +56,7 @@ function auth(){
   window.Pi.authenticate(scopes, onIncompletePaymentFound)
   .then(function(_authResult) {
     authResult = _authResult;
-    //console.log("Hi there! You're ready to make payments!");
-    //window.alert("Hi there! You're ready to make payments!");
+
     document.getElementById("authButtonId").remove();
     document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", authentication ok!<br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
     
@@ -79,8 +78,17 @@ function auth(){
 
 function requestUserInfoByAccessToken(_authResult){
   
-  var xhr = new XMLHttpRequest();
+  let data = `{
+    operation:"infoByUserAccessToken",
+    user_access_token":"dsdsd",
+  }`;
+  
+  let xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint+requestOperation_path);
+  
+  xhr.setRequestHeader("Content-Type", "application/json");
+  //xhr.setRequestHeader("Content-Length", data.length);
+  
   xhr.onreadystatechange = function () {
     
     if (xhr.readyState === 4 )
@@ -90,13 +98,6 @@ function requestUserInfoByAccessToken(_authResult){
         printInErrorDiv("Error request user info",xhr);
   };
 
-  var data = `{
-    "operation":"infoByUserAccessToken",
-    "user_access_token":"${_authResult}",
-  }`;
-  
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Content-Length", data.length);
   xhr.send(data);
   
   document.getElementById("userInfoByAccessToken").innerHTML="request user info by access token...";

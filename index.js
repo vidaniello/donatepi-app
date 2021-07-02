@@ -1,3 +1,8 @@
+/**
+* Simple pattern for serve static the public/ folder content.
+*/
+
+
 var express = require('express');
 var serveStatic = require('serve-static');
  
