@@ -2,28 +2,24 @@ const scopes = ['payments'];
 
 const donatepiEndpoint = "https://donatepi-server.glitch.me/v1";
 
+var donatepiServerConnection = false;
 var authResult = null;
 
-var url = "https://donatepi-server.glitch.me/v1";
-
+//Request donatepi-server status
+var url = "https://donatepi-server.glitch.me/serverStatus";
 var xhr = new XMLHttpRequest();
-xhr.open("POST", url);
-
-xhr.setRequestHeader("Content-Type", "application/json");
-
+xhr.open("GET", url);
+//xhr.setRequestHeader("Content-Type", "text/plain");
 xhr.onreadystatechange = function () {
    if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
+     if(xhr.status==200){
+       donatepiServerConnection=true;
+       document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
+     }else{
+       document.getElementById("donatepiServerStatus").innerHTML="Donatepi-server status error: "+xhr.status;
+     }
    }};
-
-var data = `{
-  "operation":"infoByUserAccessToken",
-  "user_access_token":"QNXa-cduMskJNllwRNrGd0E9Q3NYRPNe6HERwW28iYs",
-  "payment_id":"wmsuEPgPVmHELIuvji7xrudeAUw5"
-}`;
-
-xhr.send(data);
+xhr.send();
 
 
 
