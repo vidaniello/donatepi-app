@@ -15,14 +15,18 @@ document.addEventListener("DOMContentLoaded", function(){
   var xhr = new XMLHttpRequest();
   xhr.open("GET", donatepiEndpoint+requestDonatepiServerStatus_path);
   xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4 && xhr.status === 200) {
+    
+  if (xhr.readyState === 4){
+    if(xhr.status === 200){
       donatepiServerConnection=true;
       document.getElementById("donatepiServerStatus").innerHTML=xhr.responseText;
-    }else{
-      document.getElementById("authButtonId").remove();
-      document.getElementById("authId").innerHTML=null;
-      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
     }
+  }else{
+    document.getElementById("authButtonId").remove();
+    document.getElementById("authId").innerHTML=null;
+    document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
+  }
+    
   };
   xhr.send();
   
