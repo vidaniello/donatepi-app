@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
   xhr.open("GET", donatepiEndpoint+requestDonatepiServerStatus_path);
   xhr.onreadystatechange = function () {
     
-  if (xhr.readyState === 4 && xhr.status === 200)
+  if (xhr.readyState === 4 )
     if(xhr.status === 200){
       donatepiServerConnection=true;
       document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: green;\">"+xhr.responseText+"</span>";
@@ -27,9 +27,12 @@ document.addEventListener("DOMContentLoaded", function(){
         `
       document.getElementById("authDiv").innerHTML=authText;
       
-    }else
-      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">Donatepi-server status error: "+xhr.status+"</span>";
-    
+    }else{
+      let text = "Donatepi-server status error";
+      if(xhr.responseText!="")
+        text=xhr.responseText;
+      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">"+text+"<br/>status: "+xhr.status+"</span>";
+    }
     
   };
   xhr.send();
@@ -79,11 +82,12 @@ function requestUserInfoByAccessToken(_authResult){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint+requestOperation_path);
   xhr.onreadystatechange = function () {
-     if (xhr.readyState === 4 && xhr.status === 200) {
-       document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
-     }else
-       printInErrorDiv("Error request user info",xhr);
-     
+    
+    if (xhr.readyState === 4 )
+      if(xhr.status === 200){
+        document.getElementById("userInfoByAccessToken").innerHTML=xhr.responseText;
+      }else
+        printInErrorDiv("Error request user info",xhr);
   };
 
   var data = `{
