@@ -55,8 +55,9 @@ function printInErrorDiv(messageError, xhr){
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
-  printInErrorDiv()
+  printInErrorDiv("Last paymentId '"+payment+"' was incomplete");
 };
+
 
 function auth(){
   window.Pi.authenticate(scopes, onIncompletePaymentFound)
@@ -84,16 +85,16 @@ function auth(){
 
 function requestUserInfoByAccessToken(userAccessToken){
   
-  let data = `{
-    "operation": "infoByUserAccessToken",
-    "user_access_token": "${userAccessToken}"
-  }`;
+  let data = new Object();
+  data.operation = "infoByUserAccessToken";
+  data.user_access_token = userAccessToken;
+  let dataJson = JSON.stringify(data);
   
   let xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint+requestOperation_path);
   
   xhr.setRequestHeader("Content-Type", "application/json");
-  //xhr.setRequestHeader("Content-Length", data.length);
+  xhr.setRequestHeader("Content-Length", dataJson.length);
   
   xhr.onreadystatechange = function () {
     
@@ -104,7 +105,7 @@ function requestUserInfoByAccessToken(userAccessToken){
         printInErrorDiv("Error request user info",xhr);
   };
 
-  xhr.send(data);
+  xhr.send(dataJson);
   
   document.getElementById("userInfoByAccessToken").innerHTML="request user info by access token...";
 }
