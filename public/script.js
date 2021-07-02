@@ -116,44 +116,44 @@ function requestUserInfoByAccessToken(userAccessToken){
 
 function createPay(){
   window.Pi.createPayment({
-  amount: 2.1,
-  memo: "a memo", 
-  metadata: {type:"donation"},
-}, {
-  // Callbacks you need to implement - read more about those in the detailed docs linked below:
-  onReadyForServerApproval: function(paymentId) { 
-    
-    window.alert("paymentId: "+paymentId+" end");
-    
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
+    amount: 2.1,
+    memo: "a memo", 
+    metadata: {type:"donation"},
+  }, {
+    // Callbacks you need to implement - read more about those in the detailed docs linked below:
+    onReadyForServerApproval: function(paymentId) { 
 
-    xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
+      window.alert("paymentId: "+paymentId+" end");
 
-    xhr.onreadystatechange = function () {
-     if (xhr.readyState === 4) {
-      window.alert(xhr.status);
-      window.alert(xhr.responseText);
-     }
-    };
 
-    xhr.send();
-    
-    
-  },
-  onReadyForServerCompletion: function(paymentId, txid) { 
-    window.alert("onReadyForServerCompletion");
-    
-    
-  },
-  onCancel: function(paymentId) {
-    window.alert("onCancel");
-  },
-  onError: function(error, payment) {
-    window.alert("onError: "+error);
-    window.alert("onError: "+payment);
-  },
-});
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
+
+      xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
+
+      xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+        window.alert(xhr.status);
+        window.alert(xhr.responseText);
+       }
+      };
+
+      xhr.send();
+
+
+    },
+    onReadyForServerCompletion: function(paymentId, txid) { 
+      window.alert("onReadyForServerCompletion");
+
+
+    },
+    onCancel: function(paymentId) {
+      window.alert("onCancel");
+    },
+    onError: function(error, payment) {
+      window.alert("onError: "+error);
+      window.alert("onError: "+payment);
+    },
+  });
 }
 
