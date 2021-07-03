@@ -63,6 +63,9 @@ function onIncompletePaymentFound(payment) {
 };
 
 function printBalance(){
+  
+  document.getElementById("donatepiBalance").innerHTML="request donatepi balance....";
+  
   let xhr = new XMLHttpRequest();
   xhr.open("GET", "https://api.testnet.minepi.com/accounts/GCZRZSUCS6H2EDBSNQ4RUSNB2SOSSD63WLGLGHTCEFC6ZWMBCIDRNVFU");
   xhr.onreadystatechange = function () {
@@ -73,7 +76,13 @@ function printBalance(){
       let respObj = JSON.parse(xhr.responseText);
       let balance = respObj.balances[0].balance
       
+      let updateBalance = document.createElement("input");
+      updateBalance.type = "button";
+      updateBalance.value = "Update balance";
+      updateBalance.addEventListener("click", printBalance);
+      
       document.getElementById("donatepiBalance").innerHTML="Donatepi balance: "+balance;
+      document.getElementById("donatepiBalance").appendChild(updateBalance);
       
     }else{
       printInErrorDiv("Error request balance",xhr);
@@ -158,6 +167,7 @@ function createPay(){
       printInErrorDiv("payment error: "+error);
     },
   });
+  document.getElementById("sendPayments").innerHTML="waiting for donatepi-server approval...";
 }
 
 
@@ -179,8 +189,9 @@ function onReadyForServerApproval(paymentId){
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
+        document.getElementById("sendPayments").innerHTML="waiting for donatepi-server completiotion...";
       }else
-        printInErrorDiv("Error ready for server approval",xhr);
+        printInErrorDiv("Error ready for server payment approval",xhr);
   };
 
   xhr.send(dataJson);
@@ -206,8 +217,11 @@ function onReadyForServerCompletion(paymentId, txid){
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
+        document.getElementById("sendPayments").innerHTML="";
+        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you!</span>";
+        printBalance();
       }else
-        printInErrorDiv("Error ready for server approval",xhr);
+        printInErrorDiv("Error ready for server payment completition",xhr);
   };
 
   xhr.send(dataJson);
