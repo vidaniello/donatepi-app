@@ -49,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function(){
       let authText = `
         <span id="authId">Authenticate before continue!</span>
         <input type="button" id="authButtonId" onclick="auth();" value="Authenticate"/>
-        `
+        `;
+      
       document.getElementById("authDiv").innerHTML=authText;
       
     }else{
@@ -136,7 +137,7 @@ function requestUserInfoByAccessToken(userAccessToken){
 }
 
 
-
+// https://api.testnet.minepi.com
 
 
 function createPay(){
