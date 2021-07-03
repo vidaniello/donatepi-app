@@ -1,3 +1,7 @@
+// https://api.testnet.minepi.com
+// https://pi-blockchain.net/
+// https://dashboard.pi-blockchain.net/
+
 const scopes = ['payments'];
 
 const donatepiEndpoint = "https://donatepi-server.glitch.me";
@@ -6,7 +10,6 @@ const requestOperation_path = "/v1";
 
 var donatepiServerConnection = false;
 var authResult = null;
-
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -69,6 +72,8 @@ function printBalance(accountId){
       let respObj = JSON.parse(xhr.responseText);
       let balance = respObj.balances[0].balance
       
+      document.getElementById("donatepiServerStatus").innerHTML=;
+      
     }else{
       printInErrorDiv("Error request balance",xhr);
     }
@@ -129,44 +134,15 @@ function requestUserInfoByAccessToken(userAccessToken){
 }
 
 
-// https://api.testnet.minepi.com
-// https://pi-blockchain.net/
-// https://dashboard.pi-blockchain.net/
-
-
 function createPay(){
   window.Pi.createPayment({
-    amount: 2.1,
-    memo: "a memo", 
-    metadata: {type:"donation"},
+    amount: 1,
+    memo: "donation to donatepi app", 
+    metadata: {type:"standard donation", amount:"1"},
   }, {
     // Callbacks you need to implement - read more about those in the detailed docs linked below:
-    onReadyForServerApproval: function(paymentId) { 
-
-      window.alert("paymentId: "+paymentId+" end");
-
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
-
-      xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
-
-      xhr.onreadystatechange = function () {
-       if (xhr.readyState === 4) {
-        window.alert(xhr.status);
-        window.alert(xhr.responseText);
-       }
-      };
-
-      xhr.send();
-
-
-    },
-    onReadyForServerCompletion: function(paymentId, txid) { 
-      window.alert("onReadyForServerCompletion");
-
-
-    },
+    onReadyForServerApproval: onReadyForServerApproval,
+    onReadyForServerCompletion: onReadyForServerCompletion,
     onCancel: function(paymentId) {
       window.alert("onCancel");
     },
@@ -176,4 +152,30 @@ function createPay(){
     },
   });
 }
+
+
+function onReadyForServerApproval(paymentId){
+  
+  window.alert("paymentId: "+paymentId+" end");
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
+
+  xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
+
+  xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+    window.alert(xhr.status);
+    window.alert(xhr.responseText);
+   }
+  };
+
+  xhr.send();
+
+}
+
+function onReadyForServerCompletion(paymentId, txid){
+  
+}
+
 
