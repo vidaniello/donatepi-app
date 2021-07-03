@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
   };
   xhr.send();
-  
+  printBalance();
 });
 
 
@@ -58,10 +58,10 @@ function printInErrorDiv(messageError, xhr){
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
-  printInErrorDiv("Last payment INCOMPLETE:<br/> '"+JSON.stringify(payment));
+  printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
 };
 
-function printBalance(accountId){
+function printBalance(){
   let xhr = new XMLHttpRequest();
   xhr.open("GET", "https://api.testnet.minepi.com/accounts/GCZRZSUCS6H2EDBSNQ4RUSNB2SOSSD63WLGLGHTCEFC6ZWMBCIDRNVFU");
   xhr.onreadystatechange = function () {
@@ -72,7 +72,7 @@ function printBalance(accountId){
       let respObj = JSON.parse(xhr.responseText);
       let balance = respObj.balances[0].balance
       
-      document.getElementById("donatepiServerStatus").innerHTML=;
+      document.getElementById("donatepiBalance").innerHTML="Donatepi balance: "+balance;
       
     }else{
       printInErrorDiv("Error request balance",xhr);
@@ -92,11 +92,15 @@ function auth(){
     
     requestUserInfoByAccessToken(_authResult.accessToken);
     
+    let message = document.createElement("span");
+    message.innerHTML="Click button to send 1pi standard donation ";
+    
     let sendButton = document.createElement("input");
     sendButton.type = "button";
-    sendButton.value = "Send donation";
+    sendButton.value = "Send 1pi standard donation";
     sendButton.addEventListener("click", createPay);
     
+    document.getElementById("sendPayments").appendChild(message);
     document.getElementById("sendPayments").appendChild(sendButton);
   })
   .catch(function(error) {
