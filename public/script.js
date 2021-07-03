@@ -59,7 +59,7 @@ function printInErrorDiv(messageError, xhr){
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
-  printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
+  printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*new TextEncoder().encode(JSON.stringify(*/payment.identifier/*))*/);
 };
 
 function printBalance(){
@@ -116,7 +116,7 @@ function requestUserInfoByAccessToken(userAccessToken){
   let data = new Object();
   data.operation = "infoByUserAccessToken";
   data.user_access_token = userAccessToken;
-  let dataJson = JSON.stringify(data);
+  let dataJson = new TextEncoder().encode(JSON.stringify(data));
   
   let xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint+requestOperation_path);
@@ -166,7 +166,7 @@ function onReadyForServerApproval(paymentId){
   let data = new Object();
   data.operation = "approvePayment";
   data.payment_id = paymentId;
-  let dataJson = JSON.stringify(data);
+  let dataJson = new TextEncoder().encode(JSON.stringify(data));
   
   let xhr = new XMLHttpRequest();
   xhr.open("POST", donatepiEndpoint+requestOperation_path);
