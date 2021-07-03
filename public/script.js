@@ -1,3 +1,4 @@
+// https://github.com/pi-apps/pi-platform-docs
 // https://api.testnet.minepi.com
 // https://pi-blockchain.net/
 // https://dashboard.pi-blockchain.net/
@@ -160,21 +161,29 @@ function createPay(){
 
 function onReadyForServerApproval(paymentId){
   
-  window.alert("paymentId: "+paymentId+" end");
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://api.minepi.com/v2/payments/"+paymentId+"/approve");
-
-  xhr.setRequestHeader("Authorization", "Key put-here-auth-key");
-
+  let data = new Object();
+  data.operation = "approvePayment";
+  data.payment_id = paymentId;
+  let dataJson = JSON.stringify(data);
+  
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", donatepiEndpoint+requestOperation_path);
+  
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Content-Length", dataJson.length);
+  
   xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-    window.alert(xhr.status);
-    window.alert(xhr.responseText);
-   }
+    
+    if (xhr.readyState === 4 )
+      if(xhr.status === 200){
+        document.getElementById("userInfoByAccessToken").innerHTML="''/me' from pi chain: "+xhr.responseText;
+      }else
+        printInErrorDiv("Error request user info",xhr);
   };
 
-  xhr.send();
+  xhr.send(dataJson);
+  
+  document.getElementById("userInfoByAccessToken").innerHTML="request user info by access token...";
 
 }
 
