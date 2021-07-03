@@ -58,8 +58,23 @@ function onIncompletePaymentFound(payment) {
   printInErrorDiv("Last payment INCOMPLETE:<br/> '"+JSON.stringify(payment));
 };
 
-function printBalance(){
-  
+function printBalance(accountId){
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://api.testnet.minepi.com/accounts/GCZRZSUCS6H2EDBSNQ4RUSNB2SOSSD63WLGLGHTCEFC6ZWMBCIDRNVFU");
+  xhr.onreadystatechange = function () {
+    
+  if (xhr.readyState === 4 )
+    if(xhr.status === 200){
+      
+      let respObj = JSON.parse(xhr.responseText);
+      let balance = respObj.balances[0].balance
+      
+    }else{
+      printInErrorDiv("Error request balance",xhr);
+    }
+    
+  };
+  xhr.send();
 }
 
 function auth(){
