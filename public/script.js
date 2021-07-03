@@ -139,7 +139,7 @@ function requestUserInfoByAccessToken(userAccessToken){
 
 // https://api.testnet.minepi.com
 // https://pi-blockchain.net/
-// 
+// https://dashboard.pi-blockchain.net/
 
 
 function createPay(){
