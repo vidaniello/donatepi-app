@@ -37,32 +37,6 @@ document.addEventListener("DOMContentLoaded", function(){
   };
   xhr.send();
   
-  xhr = new XMLHttpRequest();
-  xhr.open("GET", donatepiEndpoint+requestDonatepiServerStatus_path);
-  xhr.onreadystatechange = function () {
-    
-  if (xhr.readyState === 4 )
-    if(xhr.status === 200){
-      donatepiServerConnection=true;
-      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: green;\">"+xhr.responseText+"</span>";
-      
-      let authText = `
-        <span id="authId">Authenticate before continue!</span>
-        <input type="button" id="authButtonId" onclick="auth();" value="Authenticate"/>
-        `;
-      
-      document.getElementById("authDiv").innerHTML=authText;
-      
-    }else{
-      let text = "Donatepi-server status error";
-      if(xhr.responseText!="")
-        text=xhr.responseText;
-      document.getElementById("donatepiServerStatus").innerHTML="<span style=\"color: red;\">"+text+"<br/>status: "+xhr.status+"</span>";
-    }
-    
-  };
-  xhr.send();
-  
 });
 
 
@@ -84,6 +58,9 @@ function onIncompletePaymentFound(payment) {
   printInErrorDiv("Last payment INCOMPLETE:<br/> '"+JSON.stringify(payment));
 };
 
+function printBalance(){
+  
+}
 
 function auth(){
   window.Pi.authenticate(scopes, onIncompletePaymentFound)
