@@ -149,11 +149,13 @@ function createPay(){
     onReadyForServerApproval: onReadyForServerApproval,
     onReadyForServerCompletion: onReadyForServerCompletion,
     onCancel: function(paymentId) {
-      window.alert("onCancel");
+      //window.alert("payment canceled: "+paymentId);
+      printInErrorDiv("payment canceled: "+paymentId);
     },
     onError: function(error, payment) {
-      window.alert("onError: "+error);
-      window.alert("onError: "+payment);
+      //window.alert("payment error: "+error);
+      //window.alert("onError: "+payment);
+      printInErrorDiv("payment error: "+error);
     },
   });
 }
@@ -176,14 +178,12 @@ function onReadyForServerApproval(paymentId){
     
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
-        document.getElementById("userInfoByAccessToken").innerHTML="''/me' from pi chain: "+xhr.responseText;
+        let paymentDTO = xhr.responseText;
       }else
-        printInErrorDiv("Error request user info",xhr);
+        printInErrorDiv("Error ready for server approval",xhr);
   };
 
   xhr.send(dataJson);
-  
-  document.getElementById("userInfoByAccessToken").innerHTML="request user info by access token...";
 
 }
 
