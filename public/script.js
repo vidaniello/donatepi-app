@@ -226,7 +226,7 @@ function onReadyForServerCompletion(paymentId, txid){
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
         document.getElementById("sendPayments").innerHTML="";
-        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+paymentDTO.transaction._link+"</span>";
+        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+/*paymentDTO.transaction._link+*/"</span>";
         printBalance();
       }else
         printInErrorDiv("Error ready for server payment completition",xhr);
