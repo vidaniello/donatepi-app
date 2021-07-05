@@ -63,9 +63,9 @@ function onIncompletePaymentFound(payment) {
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
   //printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
+  if()
   document.getElementById("sendPayments").innerHTML="Last payment INCOMPLETE, waiting for donatepi-server completion...";
   onReadyForServerCompletion(payment.identifier, payment.transaction.txid);
-  
 };
 
 function printBalance(){
@@ -107,17 +107,7 @@ function auth(){
     document.getElementById("authId").innerHTML="Welcome "+authResult.user.username+", <span style='color: green;'>authentication ok!</span><br/>uid: "+authResult.user.uid+", accessToken: "+authResult.accessToken;
     
     requestUserInfoByAccessToken(_authResult.accessToken);
-    
-    let message = document.createElement("span");
-    message.innerHTML="Click button to send 1pi standard donation ";
-    
-    let sendButton = document.createElement("input");
-    sendButton.type = "button";
-    sendButton.value = "Send 1pi standard donation";
-    sendButton.addEventListener("click", createPay);
-    
-    document.getElementById("sendPayments").appendChild(message);
-    document.getElementById("sendPayments").appendChild(sendButton);
+    createDonationButton();
   })
   .catch(function(error) {
     console.error(error);
@@ -125,6 +115,19 @@ function auth(){
   });
 }
 
+
+function createDonationButton(){
+  let message = document.createElement("span");
+  message.innerHTML="Click button to send 1pi standard donation ";
+    
+  let sendButton = document.createElement("input");
+  sendButton.type = "button";
+  sendButton.value = "Send 1pi standard donation";
+  sendButton.addEventListener("click", createPay);
+    
+  document.getElementById("sendPayments").appendChild(message);
+  document.getElementById("sendPayments").appendChild(sendButton);
+}
 
 function requestUserInfoByAccessToken(userAccessToken){
   
@@ -224,9 +227,13 @@ function onReadyForServerCompletion(paymentId, txid){
     
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
-        let paymentDTO = xhr.responseText;
+        
+        let paymentDTO = JSON.parse(xhr.responseText);
+        
         document.getElementById("sendPayments").innerHTML="";
-        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+/*paymentDTO.transaction._link+*/"</span>";
+        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/>"+
+        "<span>See on pi blockchain explorer: <a href='"+paymentDTO.transaction._link+"' >json</a> <a href=''></a></span>";
+        
         printBalance();
       }else
         printInErrorDiv("Error ready for server payment completition",xhr);
