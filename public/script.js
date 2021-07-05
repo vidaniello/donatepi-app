@@ -63,9 +63,20 @@ function onIncompletePaymentFound(payment) {
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
   //printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
-  if()
-  document.getElementById("sendPayments").innerHTML="Last payment INCOMPLETE, waiting for donatepi-server completion...";
-  onReadyForServerCompletion(payment.identifier, payment.transaction.txid);
+  /*
+  if(payment.status.cancelled==true || payment.status.user_cancelled==true){
+    //LAST PAYMENT CANCELLED
+    
+  }else if(payment.status.developer_approved==true && payment.status.transaction_verified==true && payment.status.developer_completed==true){
+    //LAST PAYMENT DONE
+    
+  }else{
+    //LAST PAYMENT INCOMPLETE
+   */ 
+    document.getElementById("sendPayments").innerHTML="Last payment INCOMPLETE, waiting for donatepi-server completion...";
+    onReadyForServerCompletion(payment.identifier, payment.transaction.txid);
+  /*}*/
+  
 };
 
 function printBalance(){
@@ -232,9 +243,10 @@ function onReadyForServerCompletion(paymentId, txid){
         
         document.getElementById("sendPayments").innerHTML="";
         document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/>"+
-        "<span>See on pi blockchain explorer: <a href='"+paymentDTO.transaction._link+"' >json</a> <a href=''></a></span>";
+        "<span>See on pi blockchain explorer: <a href='"+paymentDTO.transaction._link+"' >json</a> or <a href='https://pi-blockchain.net/tx/"+paymentDTO.transaction.txid+"'>web</a></span>";
         
         printBalance();
+        createDonationButton();
       }else
         printInErrorDiv("Error ready for server payment completition",xhr);
   };
