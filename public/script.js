@@ -57,10 +57,14 @@ function printInErrorDiv(messageError, xhr){
 
 
 function onIncompletePaymentFound(payment) { 
+  
+  //payment is PaymentDTO object
+  
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
   //printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
-  onReadyForServerCompletion();
+  document.getElementById("sendPayments").innerHTML="Last payment INCOMPLETE, waiting for donatepi-server completion...";
+  onReadyForServerCompletion(payment.identifier, payment.transaction.txid);
   
 };
 
@@ -192,7 +196,7 @@ function onReadyForServerApproval(paymentId){
     if (xhr.readyState === 4 )
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
-        document.getElementById("sendPayments").innerHTML="waiting for donatepi-server completiotion...";
+        document.getElementById("sendPayments").innerHTML="waiting for donatepi-server completion...";
       }else
         printInErrorDiv("Error ready for server payment approval",xhr);
   };
@@ -221,7 +225,7 @@ function onReadyForServerCompletion(paymentId, txid){
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
         document.getElementById("sendPayments").innerHTML="";
-        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you!</span>";
+        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+"</span>";
         printBalance();
       }else
         printInErrorDiv("Error ready for server payment completition",xhr);
