@@ -7,3 +7,6 @@ This is a client who communicate with the [donatepi-server](https://github.com/v
 The core files can be considered `public/index.html` and `public/scrips.js`.
 
 The other files are an implementation of a node server with basic pattern for serve static files, precisely those contained in the `public/` folder.
+
+
+[Here](https://glitch.com/edit/#!/donatepi) you can see a running example.
