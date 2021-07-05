@@ -59,7 +59,9 @@ function printInErrorDiv(messageError, xhr){
 function onIncompletePaymentFound(payment) { 
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
-  printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
+  //printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
+  onReadyForServerCompletion();
+  
 };
 
 function printBalance(){
@@ -165,6 +167,7 @@ function createPay(){
       //window.alert("payment error: "+error);
       //window.alert("onError: "+payment);
       printInErrorDiv("payment error: "+error);
+      document.getElementById("sendPayments").innerHTML="<span style='color: red;'>payment error: "+error+"</span>";
     },
   });
   document.getElementById("sendPayments").innerHTML="waiting for donatepi-server approval...";
