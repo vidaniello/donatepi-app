@@ -166,6 +166,7 @@ function createPay(){
     onCancel: function(paymentId) {
       //window.alert("payment canceled: "+paymentId);
       printInErrorDiv("payment canceled: "+paymentId);
+      document.getElementById("sendPayments").innerHTML="Reload the app for ";
     },
     onError: function(error, payment) {
       //window.alert("payment error: "+error);
@@ -225,7 +226,7 @@ function onReadyForServerCompletion(paymentId, txid){
       if(xhr.status === 200){
         let paymentDTO = xhr.responseText;
         document.getElementById("sendPayments").innerHTML="";
-        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+"</span>";
+        document.getElementById("donationComplete").innerHTML="<span style='color: green;'>Donation done, tank you! </span><br/><span>See on pi blockchain explorer: "+paymentDTO.transaction._link+"</span>";
         printBalance();
       }else
         printInErrorDiv("Error ready for server payment completition",xhr);
