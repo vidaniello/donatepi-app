@@ -63,7 +63,7 @@ function onIncompletePaymentFound(payment) {
   console.log("Incomplete payment not found: "+payment);
   //window.alert("Incomplete payment not found: "+payment);
   //printInErrorDiv("Last payment INCOMPLETE:<br/> "+/*JSON.stringify(*/payment.identifier/*)*/);
-  /*
+  
   if(payment.status.cancelled==true || payment.status.user_cancelled==true){
     //LAST PAYMENT CANCELLED
     
@@ -72,10 +72,10 @@ function onIncompletePaymentFound(payment) {
     
   }else{
     //LAST PAYMENT INCOMPLETE
-   */ 
+   
     document.getElementById("sendPayments").innerHTML="Last payment INCOMPLETE, waiting for donatepi-server completion...";
     onReadyForServerCompletion(payment.identifier, payment.transaction.txid);
-  /*}*/
+  }
   
 };
 
